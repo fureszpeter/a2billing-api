@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace A2billingApi\Http\Controllers\Auth;
 
-use App\User;
+use A2billingApi\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use A2billingApi\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller

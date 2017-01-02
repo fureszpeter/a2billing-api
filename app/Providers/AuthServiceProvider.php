@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace A2billingApi\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        'A2billingApi\Model' => 'A2billingApi\Policies\ModelPolicy',
     ];
 
     /**

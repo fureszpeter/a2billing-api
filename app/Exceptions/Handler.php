@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace A2billingApi\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;

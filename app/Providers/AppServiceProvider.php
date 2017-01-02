@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace A2billingApi\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

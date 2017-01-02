@@ -172,11 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        A2billingApi\Providers\AppServiceProvider::class,
+        A2billingApi\Providers\AuthServiceProvider::class,
+        // A2billingApi\Providers\BroadcastServiceProvider::class,
+        A2billingApi\Providers\EventServiceProvider::class,
+        A2billingApi\Providers\RouteServiceProvider::class,
 
     ],
 
