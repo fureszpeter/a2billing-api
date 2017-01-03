@@ -178,6 +178,10 @@ return [
         A2billingApi\Providers\EventServiceProvider::class,
         A2billingApi\Providers\RouteServiceProvider::class,
 
+        /*
+         * DEV SERVICE PROVIDERS
+         */
+        \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

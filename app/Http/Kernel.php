@@ -2,6 +2,7 @@
 
 namespace A2billingApi\Http;
 
+use A2billingApi\Http\Middleware\AuthenticateOnceWithBasicAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -35,6 +36,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            'auth.basic.once',
         ],
     ];
 
@@ -46,11 +48,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \A2billingApi\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'auth'            => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth.basic'      => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.basic.once' => AuthenticateOnceWithBasicAuth::class,
+        'bindings'        => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can'             => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'           => \A2billingApi\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'        => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }
