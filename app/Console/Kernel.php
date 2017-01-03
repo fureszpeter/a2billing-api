@@ -2,6 +2,9 @@
 
 namespace A2billingApi\Console;
 
+use A2billingApi\Console\Commands\AddUserCommand;
+use A2billingApi\Console\Commands\ChangeUserCommand;
+use A2billingApi\Console\Commands\ListUsersCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +16,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        AddUserCommand::class,
+        ListUsersCommand::class,
+        ChangeUserCommand::class,
     ];
 
     /**

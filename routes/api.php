@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::get('/subscriptions', 'SubscriptionController@index')->name('subscriptions.index');
+Route::get('/subscriptions/{id}', 'SubscriptionController@show')->name('subscriptions.show');
+Route::get('/subscriptions/count', 'SubscriptionController@count')->name('subscriptions.count');
+Route::get('/subscriptions/pin/{pin}', 'SubscriptionController@getByPin')->name('subscriptions.getByPin');
+

@@ -4,8 +4,9 @@ namespace A2billingApi;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use JsonSerializable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JsonSerializable
 {
     use Notifiable;
 
