@@ -1,6 +1,6 @@
 <?php
 
-namespace A2billingApi\Http\Middleware;
+namespace LaraCall\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 

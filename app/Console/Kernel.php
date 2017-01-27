@@ -1,10 +1,7 @@
 <?php
 
-namespace A2billingApi\Console;
+namespace LaraCall\Console;
 
-use A2billingApi\Console\Commands\AddUserCommand;
-use A2billingApi\Console\Commands\ChangeUserCommand;
-use A2billingApi\Console\Commands\ListUsersCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,9 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        AddUserCommand::class,
-        ListUsersCommand::class,
-        ChangeUserCommand::class,
+        // Commands\Inspire::class,
     ];
 
     /**
@@ -31,15 +26,5 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-    }
-
-    /**
-     * Register the Closure based commands for the application.
-     *
-     * @return void
-     */
-    protected function commands()
-    {
-        require base_path('routes/console.php');
     }
 }

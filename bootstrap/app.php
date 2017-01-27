@@ -28,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    A2billingApi\Http\Kernel::class
+    LaraCall\Http\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    A2billingApi\Console\Kernel::class
+    LaraCall\Console\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    A2billingApi\Exceptions\Handler::class
+    LaraCall\Exceptions\Handler::class
 );
 
 /*

@@ -1,6 +1,6 @@
 <?php
 
-namespace A2billingApi\Providers;
+namespace LaraCall\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

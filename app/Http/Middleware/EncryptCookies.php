@@ -1,6 +1,6 @@
 <?php
 
-namespace A2billingApi\Http\Middleware;
+namespace LaraCall\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as BaseEncrypter;
 

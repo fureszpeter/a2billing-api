@@ -1,8 +1,7 @@
 <?php
 
-namespace A2billingApi\Http;
+namespace LaraCall\Http;
 
-use A2billingApi\Http\Middleware\AuthenticateOnceWithBasicAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -25,18 +24,15 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \A2billingApi\Http\Middleware\EncryptCookies::class,
+            \LaraCall\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \A2billingApi\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \LaraCall\Http\Middleware\VerifyCsrfToken::class,
         ],
 
         'api' => [
             'throttle:60,1',
-            'bindings',
-            'auth.basic.once',
         ],
     ];
 
@@ -48,12 +44,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'            => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic'      => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'auth.basic.once' => AuthenticateOnceWithBasicAuth::class,
-        'bindings'        => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can'             => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'           => \A2billingApi\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle'        => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'auth' => \LaraCall\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
+        'guest' => \LaraCall\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

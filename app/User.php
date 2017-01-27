@@ -1,15 +1,11 @@
 <?php
 
-namespace A2billingApi;
+namespace LaraCall;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use JsonSerializable;
 
-class User extends Authenticatable implements JsonSerializable
+class User extends Authenticatable
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
