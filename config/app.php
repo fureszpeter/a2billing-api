@@ -182,6 +182,11 @@ return [
          * DEV SERVICE PROVIDERS
          */
         \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        /*
+         * Domain service providers
+         */
+        \A2billingApi\Providers\DomainServiceProvider::class,
     ],
 
     /*

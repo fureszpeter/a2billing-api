@@ -4,6 +4,7 @@ namespace A2billingApi\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,7 +47,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \OutOfBoundsException) {
+        if (
+            $exception instanceof \OutOfBoundsException
+            || $exception instanceof ModelNotFoundException
+            || $exception instanceof \InvalidArgumentException
+            || $exception instanceof \UnexpectedValueException
+        ) {
             return response()->json(['error' => 'Not found', 'message' => $exception->getMessage()], 400);
         }
 
