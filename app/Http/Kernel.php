@@ -2,6 +2,7 @@
 
 namespace A2billingApi\Http;
 
+use A2billingApi\Http\Middleware\AuthenticateOnceWithBasicAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -45,6 +46,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \A2billingApi\Http\Middleware\Authenticate::class,
+        'auth.once' => AuthenticateOnceWithBasicAuth::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \A2billingApi\Http\Middleware\RedirectIfAuthenticated::class,
