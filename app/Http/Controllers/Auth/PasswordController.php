@@ -1,8 +1,8 @@
 <?php
 
-namespace LaraCall\Http\Controllers\Auth;
+namespace A2billingApi\Http\Controllers\Auth;
 
-use LaraCall\Http\Controllers\Controller;
+use A2billingApi\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

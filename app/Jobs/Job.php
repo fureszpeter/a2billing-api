@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraCall\Jobs;
+namespace A2billingApi\Jobs;
 
 use Illuminate\Bus\Queueable;
 

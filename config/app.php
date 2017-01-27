@@ -151,10 +151,15 @@ return [
         /*
          * Application Service Providers...
          */
-        LaraCall\Providers\AppServiceProvider::class,
-        LaraCall\Providers\AuthServiceProvider::class,
-        LaraCall\Providers\EventServiceProvider::class,
-        LaraCall\Providers\RouteServiceProvider::class,
+        A2billingApi\Providers\AppServiceProvider::class,
+        A2billingApi\Providers\AuthServiceProvider::class,
+        A2billingApi\Providers\EventServiceProvider::class,
+        A2billingApi\Providers\RouteServiceProvider::class,
+
+        /*
+        * Domain service providers
+        */
+        \A2billingApi\Providers\DomainServiceProvider::class,
 
     ],
 

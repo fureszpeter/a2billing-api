@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraCall\Providers;
+namespace A2billingApi\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'LaraCall\Events\SomeEvent' => [
-            'LaraCall\Listeners\EventListener',
+        'A2billingApi\Events\SomeEvent' => [
+            'A2billingApi\Listeners\EventListener',
         ],
     ];
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraCall\Console\Commands;
+namespace A2billingApi\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

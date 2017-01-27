@@ -1,10 +1,10 @@
 <?php
 
-namespace LaraCall\Http\Controllers\Auth;
+namespace A2billingApi\Http\Controllers\Auth;
 
-use LaraCall\User;
+use A2billingApi\User;
 use Validator;
-use LaraCall\Http\Controllers\Controller;
+use A2billingApi\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

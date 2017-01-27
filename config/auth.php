@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => LaraCall\User::class,
+            'model' => A2billingApi\User::class,
         ],
 
         // 'users' => [

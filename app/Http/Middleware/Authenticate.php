@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraCall\Http\Middleware;
+namespace A2billingApi\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

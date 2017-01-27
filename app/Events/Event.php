@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraCall\Events;
+namespace A2billingApi\Events;
 
 abstract class Event
 {

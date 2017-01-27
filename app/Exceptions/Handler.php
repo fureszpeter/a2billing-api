@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraCall\Exceptions;
+namespace A2billingApi\Exceptions;
 
 use Exception;
 use Illuminate\Validation\ValidationException;
@@ -45,6 +45,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if (
+            $e instanceof \OutOfBoundsException
+            || $e instanceof ModelNotFoundException
+            || $e instanceof \InvalidArgumentException
+            || $e instanceof \UnexpectedValueException
+        ) {
+            return response()->json(['error' => 'Not found', 'message' => $e->getMessage()], 400);
+        }
+
         return parent::render($request, $e);
     }
 }
