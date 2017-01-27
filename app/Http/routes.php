@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'api', 'middleware' => ['auth.once', 'before' => 'force.ssl', 'auth']], function (){
+Route::group(['prefix' => 'api', 'middleware' => ['secure.ssl', 'auth.once', 'auth']], function (){
     Route::get('/subscriptions', 'SubscriptionController@index')->name('subscriptions.index');
     Route::post('/subscriptions', 'SubscriptionController@create')->name('subscriptions.create');
     Route::get('/subscriptions/count', 'SubscriptionController@count')->name('subscriptions.count');

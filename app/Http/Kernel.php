@@ -3,6 +3,7 @@
 namespace A2billingApi\Http;
 
 use A2billingApi\Http\Middleware\AuthenticateOnceWithBasicAuth;
+use A2billingApi\Http\Middleware\HttpsMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -51,5 +52,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \A2billingApi\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'secure.ssl' => HttpsMiddleware::class,
     ];
 }
