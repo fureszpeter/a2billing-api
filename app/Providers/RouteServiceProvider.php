@@ -2,6 +2,9 @@
 
 namespace A2billingApi\Providers;
 
+use A2billingApi\Payment;
+use A2billingApi\Subscription;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -19,25 +22,25 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
         //
 
-        parent::boot();
+        parent::boot($router);
     }
 
     /**
      * Define the routes for the application.
      *
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function map()
+    public function map(Router $router)
     {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
+        $this->mapWebRoutes($router);
 
         //
     }
@@ -47,33 +50,21 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes all receive session state, CSRF protection, etc.
      *
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapWebRoutes(Router $router)
     {
-        Route::group([
-            'middleware' => 'web',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/web.php');
+        Route::model('subscription', Subscription::class);
+        Route::model('payment', Payment::class);
+        Route::bind('countryCode', function ($code){
+            return \A2billingApi\Country::whereCountrycode($code)->firstOrFail();
         });
-    }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
-    {
-        Route::group([
-            'middleware' => 'api',
-            'namespace'  => $this->namespace,
-            'prefix'     => 'api',
+        $router->group([
+            'namespace' => $this->namespace, 'middleware' => 'web',
         ], function ($router) {
-            require base_path('routes/api.php');
+            require app_path('Http/routes.php');
         });
     }
 }

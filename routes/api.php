@@ -12,7 +12,13 @@
 */
 
 Route::get('/subscriptions', 'SubscriptionController@index')->name('subscriptions.index');
-Route::get('/subscriptions/{id}', 'SubscriptionController@show')->name('subscriptions.show');
+Route::post('/subscriptions', 'SubscriptionController@create')->name('subscriptions.create');
 Route::get('/subscriptions/count', 'SubscriptionController@count')->name('subscriptions.count');
-Route::get('/subscriptions/pin/{pin}', 'SubscriptionController@getByPin')->name('subscriptions.getByPin');
+Route::get('/subscriptions/{subscription}', 'SubscriptionController@show')->name('subscriptions.show');
 
+Route::get('/subscriptions/{subscription}/payments', 'PaymentController@index')->name('payment.index');
+Route::post('/subscriptions/{subscription}/payments', 'PaymentController@create')->name('payment.create');
+Route::get('/subscriptions/{subscription}/payments/{payment}', 'PaymentController@show')->name('payment.show');
+
+Route::get('/countries', 'PriceListController@index');
+Route::get('/price-list/{tariffId}/{countryCode?}', 'PriceListController@priceList');

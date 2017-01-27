@@ -2,6 +2,7 @@
 
 namespace A2billingApi\Providers;
 
+use DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(\PDO::class, function () {
+            return DB::connection('a2billing')->getPdo();
+        });
     }
 }

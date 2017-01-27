@@ -2,10 +2,15 @@
 
 namespace A2billingApi\Http\Controllers;
 
+use A2billingApi\Domain\Services\RegistrationService;
+use A2billingApi\Domain\ValueObjects\CreateSubscriptionRequest;
+use A2billingApi\Domain\ValueObjects\Email;
+use A2billingApi\Domain\ValueObjects\Pin;
 use A2billingApi\Subscription;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use OutOfBoundsException;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 class SubscriptionController extends Controller
 {
@@ -18,6 +23,14 @@ class SubscriptionController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->exists('pin')) {
+            return $this->getByPin(new Pin($request->get('pin')));
+        }
+
+        if ($request->exists('email')) {
+            return $this->getByEmail(new Email($request->get('email')));
+        }
+
         $limit   = $request->get('limit', 100);
         $afterId = $request->get('afterId', 0);
 
@@ -43,16 +56,16 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * @param string $pin
+     * @param Pin $pin
      *
      * @throws OutOfBoundsException If subscription not found.
      *
      * @return array
      */
-    public function getByPin(string $pin)
+    private function getByPin(Pin $pin)
     {
         /** @var Collection $subscription */
-        $subscription = Subscription::where(['username' => $pin])->get();
+        $subscription = Subscription::where(['username' => (string) $pin])->get();
 
         if ($subscription->isEmpty()) {
             throw new OutOfBoundsException(
@@ -63,23 +76,34 @@ class SubscriptionController extends Controller
         return $subscription->first();
     }
 
+    /**
+     * @param Email $email
+     *
+     * @return Subscription[]
+     */
+    private function getByEmail(Email $email)
+    {
+        /** @var Collection $subscription */
+        $subscription = Subscription::where(['email' => (string) $email])->get();
+
+        if ($subscription->isEmpty()) {
+            throw new OutOfBoundsException(
+                sprintf('Subscription not found. [email: %s]', $email)
+            );
+        }
+
+        return $subscription->all();
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  Subscription $subscription
      *
-     * @return Collection
+     * @return Subscription
      */
-    public function show($id)
+    public function show(Subscription $subscription)
     {
-        /** @var Collection $subscription */
-        $subscription = Subscription::where(['id' => $id])->get();
-
-        if ($subscription->isEmpty()) {
-            throw new OutOfBoundsException('Subscription not found.');
-        }
-
         return $subscription;
     }
 
@@ -89,5 +113,60 @@ class SubscriptionController extends Controller
     public function count()
     {
         return Subscription::all()->count();
+    }
+
+    /**
+     * @param Request             $request
+     *
+     * @param RegistrationService $registrationService
+     *
+     * @return mixed
+     */
+    public function create(Request $request, RegistrationService $registrationService)
+    {
+        /** @var ParameterBag $json */
+        $json = $request->json();
+
+        $validator = $this->getValidationFactory()->make($json->all(), [
+            "username"  => 'required|unique:a2billing.card,username|digits:10',
+            "useralias" => 'required|unique:a2billing.card,useralias|digits:15',
+            "uipass"    => 'required',
+            "tariff"    => 'required|numeric',
+            "firstname" => 'required|regex:/^[\pL\s\-]+$/u',
+            "lastname"  => 'required|regex:/^[\pL\s\-]+$/u',
+            "city"      => 'required|regex:/^[\pL\s\-]+$/u',
+            "country"   => 'required|exists:a2billing.country,countrycode',
+            "state"     => 'required_if:country,USA|alpha|size:2',
+            "zipcode"   => 'required',
+            "email"     => 'required|email',
+            "currency"  => 'required|exists:a2billing.currencies,currency',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'code'   => 422,
+                    'errors' => $validator->getMessageBag()->toArray(),
+                ],
+                422);
+        }
+
+        $createSubscriptionRequest = new CreateSubscriptionRequest(
+            $json->get('username'),
+            $json->get('useralias'),
+            $json->get('uipass'),
+            intval($json->get('tariff')),
+            $json->get('firstname'),
+            $json->get('lastname'),
+            $json->get('address'),
+            $json->get('city'),
+            $json->get('state'),
+            $json->get('country'),
+            $json->get('zipcode'),
+            $json->get('email'),
+            $json->get('currency')
+        );
+
+        return $registrationService->register($createSubscriptionRequest);
     }
 }

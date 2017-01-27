@@ -58,7 +58,7 @@ class AddUserCommand extends Command
      * @param array  $inputs
      * @param string $optionKey
      */
-    private function assertNotEmpty(array $inputs, string $optionKey)
+    private function assertNotEmpty(array $inputs, $optionKey)
     {
         if (empty(trim($inputs[$optionKey]))) {
             throw new InvalidArgumentException(
