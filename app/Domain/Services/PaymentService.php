@@ -43,7 +43,13 @@ class PaymentService
 
 
         DB::connection('a2billing')->transaction(function () use ($payment, $subscription, $request) {
-            DB::connection('a2billing')->update('UPDATE cc_card SET credit=credit + ?', [$request->getCreditValue()]);
+            DB::connection('a2billing')->update(
+                'UPDATE cc_card SET credit=credit + :credit_value WHERE id=:subscription_id',
+                [
+                    'credit_value' => $request->getCreditValue(),
+                    'subscription_id' => $subscription->id
+                ]
+            );
 
             $payment->save();
         });
