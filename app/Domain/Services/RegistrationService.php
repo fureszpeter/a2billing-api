@@ -64,7 +64,7 @@ class RegistrationService
     {
         $subscription->block     = true;
         $subscription->status    = 0;
-        $subscription->lock_date = (new DateTime())->format(DATE_ATOM);
+        $subscription->lock_date = (new DateTime());
 
         $subscription->save();
 
