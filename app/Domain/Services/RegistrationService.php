@@ -1,4 +1,5 @@
 <?php
+
 namespace A2billingApi\Domain\Services;
 
 use A2billingApi\Domain\ValueObjects\CreateSubscriptionRequest;
@@ -52,5 +53,21 @@ class RegistrationService
         $subscription->save();
 
         return $subscription->id;
+    }
+
+    /**
+     * @param Subscription $subscription
+     *
+     * @return Subscription
+     */
+    public function block(Subscription $subscription)
+    {
+        $subscription->block     = true;
+        $subscription->status    = 0;
+        $subscription->lock_date = (new DateTime())->format(DATE_ATOM);
+
+        $subscription->save();
+
+        return $subscription;
     }
 }

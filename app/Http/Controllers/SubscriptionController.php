@@ -65,7 +65,7 @@ class SubscriptionController extends Controller
     private function getByPin(Pin $pin)
     {
         /** @var Collection $subscription */
-        $subscription = Subscription::where(['username' => (string) $pin])->get();
+        $subscription = Subscription::where(['username' => (string)$pin])->get();
 
         if ($subscription->isEmpty()) {
             throw new OutOfBoundsException(
@@ -84,7 +84,7 @@ class SubscriptionController extends Controller
     private function getByEmail(Email $email)
     {
         /** @var Collection $subscription */
-        $subscription = Subscription::where(['email' => (string) $email])->get();
+        $subscription = Subscription::where(['email' => (string)$email])->get();
 
         if ($subscription->isEmpty()) {
             throw new OutOfBoundsException(
@@ -113,6 +113,17 @@ class SubscriptionController extends Controller
     public function count()
     {
         return Subscription::all()->count();
+    }
+
+    /**
+     * @param Subscription        $subscription
+     * @param RegistrationService $registrationService
+     *
+     * @return Subscription
+     */
+    public function block(Subscription $subscription, RegistrationService $registrationService)
+    {
+        return $registrationService->block($subscription);
     }
 
     /**
