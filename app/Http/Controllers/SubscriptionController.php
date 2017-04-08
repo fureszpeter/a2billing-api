@@ -60,7 +60,7 @@ class SubscriptionController extends Controller
      *
      * @throws OutOfBoundsException If subscription not found.
      *
-     * @return array
+     * @return Subscription
      */
     private function getByPin(Pin $pin)
     {
