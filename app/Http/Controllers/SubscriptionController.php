@@ -134,7 +134,7 @@ class SubscriptionController extends Controller
             "tariff"    => 'required|numeric',
             "firstname" => 'required|regex:/^[\pL\s\-]+$/u',
             "lastname"  => 'required|regex:/^[\pL\s\-]+$/u',
-            "city"      => 'required|regex:/^[\pL\s\-]+$/u',
+//            "city"      => 'required|regex:/^[a-zA-Z\' ]+$/u',
             "country"   => 'required|exists:a2billing.country,countrycode',
             "state"     => 'required_if:country,USA|alpha|size:2',
             "zipcode"   => 'required',
