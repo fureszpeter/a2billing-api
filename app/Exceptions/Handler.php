@@ -56,6 +56,11 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Not found', 'message' => $e->getMessage()], 400);
         }
 
+        if ($e instanceof ValidationException)
+        {
+            return $e->getResponse();
+        }
+
         return parent::render($request, $e);
     }
 }

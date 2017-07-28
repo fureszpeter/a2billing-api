@@ -9,6 +9,7 @@ use A2billingApi\Domain\ValueObjects\Pin;
 use A2billingApi\Subscription;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use OutOfBoundsException;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -154,12 +155,18 @@ class SubscriptionController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(
+            $response = response()->json(
                 [
                     'code'   => 422,
                     'errors' => $validator->getMessageBag()->toArray(),
+                    'input'  => $json->all(),
                 ],
                 422);
+
+            throw new ValidationException(
+                $validator,
+                $response
+            );
         }
 
         $createSubscriptionRequest = new CreateSubscriptionRequest(
