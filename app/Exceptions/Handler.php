@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use OutOfBoundsException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -21,6 +22,7 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
+        OutOfBoundsException::class
     ];
 
     /**
@@ -46,7 +48,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if (
-            $e instanceof \OutOfBoundsException
+            $e instanceof OutOfBoundsException
             || $e instanceof ModelNotFoundException
             || $e instanceof \InvalidArgumentException
             || $e instanceof \UnexpectedValueException
