@@ -9,6 +9,7 @@ use A2billingApi\Domain\ValueObjects\Pin;
 use A2billingApi\Subscription;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use OutOfBoundsException;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -60,12 +61,12 @@ class SubscriptionController extends Controller
      *
      * @throws OutOfBoundsException If subscription not found.
      *
-     * @return array
+     * @return Subscription
      */
     private function getByPin(Pin $pin)
     {
         /** @var Collection $subscription */
-        $subscription = Subscription::where(['username' => (string) $pin])->get();
+        $subscription = Subscription::where(['username' => (string)$pin])->get();
 
         if ($subscription->isEmpty()) {
             throw new OutOfBoundsException(
@@ -84,7 +85,7 @@ class SubscriptionController extends Controller
     private function getByEmail(Email $email)
     {
         /** @var Collection $subscription */
-        $subscription = Subscription::where(['email' => (string) $email])->get();
+        $subscription = Subscription::where(['email' => (string)$email])->get();
 
         if ($subscription->isEmpty()) {
             throw new OutOfBoundsException(
@@ -116,6 +117,17 @@ class SubscriptionController extends Controller
     }
 
     /**
+     * @param Subscription        $subscription
+     * @param RegistrationService $registrationService
+     *
+     * @return Subscription
+     */
+    public function block(Subscription $subscription, RegistrationService $registrationService)
+    {
+        return $registrationService->block($subscription);
+    }
+
+    /**
      * @param Request             $request
      *
      * @param RegistrationService $registrationService
@@ -143,12 +155,18 @@ class SubscriptionController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(
+            $response = response()->json(
                 [
                     'code'   => 422,
                     'errors' => $validator->getMessageBag()->toArray(),
+                    'input'  => $json->all(),
                 ],
                 422);
+
+            throw new ValidationException(
+                $validator,
+                $response
+            );
         }
 
         $createSubscriptionRequest = new CreateSubscriptionRequest(

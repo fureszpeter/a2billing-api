@@ -17,6 +17,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['secure.ssl', 'auth.once', 'au
     Route::get('/subscriptions/count', 'SubscriptionController@count')->name('subscriptions.count');
     Route::get('/subscriptions/{subscription}', 'SubscriptionController@show')->name('subscriptions.show');
 
+    Route::post('/subscriptions/{subscription}/block', 'SubscriptionController@block')->name('payment.block');
     Route::get('/subscriptions/{subscription}/payments', 'PaymentController@index')->name('payment.index');
     Route::post('/subscriptions/{subscription}/payments', 'PaymentController@create')->name('payment.create');
     Route::get('/subscriptions/{subscription}/payments/{payment}', 'PaymentController@show')->name('payment.show');
